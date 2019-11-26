@@ -1,0 +1,5 @@
+I"�<h3 id="git에-문제가-생겨-다-지웠다">git에 문제가 생겨 다 지웠다</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rm --cached -r .
+</code></pre></div></div>
+:ET
