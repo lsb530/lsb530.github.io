@@ -1,6 +1,6 @@
 ---
 layout: post
-title: " 처음으로 Markdown 포스팅 작성 "
+title: " .git 초기화 "
 categories: git
 author: boki
 tags: git syntax
