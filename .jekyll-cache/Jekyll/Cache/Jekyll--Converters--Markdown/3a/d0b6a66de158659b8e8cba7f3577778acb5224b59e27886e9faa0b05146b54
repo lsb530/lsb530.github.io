@@ -1,0 +1,160 @@
+I"�K<h2 id="menu-xml들을-이용해서-contextmenu를-만들어보자">menu xml들을 이용해서 contextMenu를 만들어보자</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379552-61bd0d80-1971-11ea-9537-fb7548abbe87.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379556-77323780-1971-11ea-96d4-86ac9592a8a8.png" alt="image" /></p>
+
+<ul>
+  <li>추가로 dialog1.xml, toast1.xml을 만들어준다
+<img src="https://user-images.githubusercontent.com/39071798/70379564-93ce6f80-1971-11ea-9b72-5bab44ea07b9.png" alt="image" /></li>
+</ul>
+
+<p><code class="highlighter-rouge">dialog1.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span> <span class="na">android:text=</span><span class="s">"사용자 이름"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;EditText</span> <span class="na">android:id=</span><span class="s">"@+id/dlgEdt1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;TextView</span> <span class="na">android:text=</span><span class="s">"이메일"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;EditText</span> <span class="na">android:id=</span><span class="s">"@+id/dlgEdt2"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">toast1.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"horizontal"</span>
+    <span class="na">android:background=</span><span class="s">"#FF0000"</span>
+    <span class="na">android:gravity=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ImageView</span> <span class="na">android:src=</span><span class="s">"@drawable/icon1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">"@+id/toastText1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"TextView"</span>
+        <span class="na">android:textSize=</span><span class="s">"20dp"</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;ImageView</span> <span class="na">android:src=</span><span class="s">"@drawable/icon1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p>`activity_main.xml</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:gravity=</span><span class="s">"center_horizontal"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">"@+id/tvName"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"사용자 이름"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">"@+id/tvEmail"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"이메일"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/button1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"여기를 클릭"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">listdialog</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.content.DialogInterface</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AlertDialog</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.EditText</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Toast</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nc">TextView</span> <span class="n">tvName</span><span class="o">,</span> <span class="n">tvEmail</span><span class="o">;</span>
+    <span class="nc">Button</span> <span class="n">button1</span><span class="o">;</span>
+    <span class="nc">EditText</span> <span class="n">dlgEdtName</span><span class="o">,</span> <span class="n">dlgEdtEmail</span><span class="o">;</span>
+    <span class="nc">TextView</span> <span class="n">toastText</span><span class="o">;</span>
+    <span class="nc">View</span> <span class="n">dialogView</span><span class="o">,</span> <span class="n">toastView</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">setTitle</span><span class="o">(</span><span class="s">"사용자 정보 입력"</span><span class="o">);</span>
+
+        <span class="n">tvName</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvName</span><span class="o">);</span>
+        <span class="n">tvEmail</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvEmail</span><span class="o">);</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button1</span><span class="o">);</span>
+        <span class="n">button1</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dialogView</span> <span class="o">=</span> <span class="o">(</span><span class="nc">View</span><span class="o">)</span><span class="nc">View</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">dialog1</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span> <span class="c1">// dialog1.xml파일을 inflate하여 dialogView에 대입</span>
+                <span class="nc">AlertDialog</span><span class="o">.</span><span class="na">Builder</span> <span class="n">dlg</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AlertDialog</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"사용자 정보 입력"</span><span class="o">);</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">setIcon</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">icon1</span><span class="o">);</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">setView</span><span class="o">(</span><span class="n">dialogView</span><span class="o">);</span> <span class="c1">// 인플레이트한 뷰를 대화상자로 사용</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">setPositiveButton</span><span class="o">(</span><span class="s">"확인"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">dlgEdtName</span> <span class="o">=</span> <span class="o">(</span><span class="nc">EditText</span><span class="o">)</span><span class="n">dialogView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">dlgEdt1</span><span class="o">);</span>
+                        <span class="n">dlgEdtEmail</span> <span class="o">=</span> <span class="o">(</span><span class="nc">EditText</span><span class="o">)</span><span class="n">dialogView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">dlgEdt2</span><span class="o">);</span>
+                        <span class="n">tvName</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">dlgEdtName</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+                        <span class="n">tvEmail</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">dlgEdtEmail</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">setNegativeButton</span><span class="o">(</span><span class="s">"취소"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">DialogInterface</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">DialogInterface</span> <span class="n">dialog</span><span class="o">,</span> <span class="kt">int</span> <span class="n">which</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="nc">Toast</span> <span class="n">toast</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Toast</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">);</span>
+                        <span class="n">toastView</span> <span class="o">=</span> <span class="o">(</span><span class="nc">View</span><span class="o">)</span><span class="nc">View</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="nc">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">toast1</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span> <span class="c1">// toast1.xml파일을 inflate하여 toastView에 대입</span>
+                        <span class="n">toastText</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">toastView</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">toastText1</span><span class="o">);</span>
+                        <span class="n">toastText</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"취소했습니다"</span><span class="o">);</span>
+                        <span class="n">toast</span><span class="o">.</span><span class="na">setView</span><span class="o">(</span><span class="n">toastView</span><span class="o">);</span>
+                        <span class="n">toast</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+                <span class="n">dlg</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="결과-화면">결과 화면</h3>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379616-2c64ef80-1972-11ea-8771-50d8d56eef1f.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379619-3f77bf80-1972-11ea-9b96-00fab8b7ee1e.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379624-47cffa80-1972-11ea-9a03-2ef06012a713.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379627-51596280-1972-11ea-9d01-67d6abd55e79.png" alt="image" /></p>
+:ET

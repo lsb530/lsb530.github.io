@@ -1,0 +1,141 @@
+I"�=<h2 id="menu-xml들을-이용해서-contextmenu를-만들어보자">menu xml들을 이용해서 contextMenu를 만들어보자</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379228-74cdde80-196d-11ea-83e4-1dcc0feb643b.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379233-80210a00-196d-11ea-8c1a-891bf4aff686.png" alt="image" /></p>
+
+<ul>
+  <li>res 밑에 menu 폴더(directory)를 만들고, menu1.xml, menu2.xml을 만들어준다
+<img src="https://user-images.githubusercontent.com/39071798/70379300-3127a480-196e-11ea-8960-7a9dcaf439de.png" alt="image" /></li>
+</ul>
+
+<p><code class="highlighter-rouge">menu1.xml</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/itemRed"</span>
+        <span class="na">android:title=</span><span class="s">"배경색(빨강)"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/itemGreen"</span>
+        <span class="na">android:title=</span><span class="s">"배경색(초록)"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/itemBlue"</span>
+        <span class="na">android:title=</span><span class="s">"배경색(파랑)"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">menu2.xml</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/subRotate"</span>
+        <span class="na">android:title=</span><span class="s">"버튼 45도 회전"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/subSize"</span>
+        <span class="na">android:title=</span><span class="s">"버튼 2개 확대"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"fill_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"fill_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;LinearLayout</span> <span class="na">android:id=</span><span class="s">"@+id/baseLayout"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+        <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+        <span class="na">android:gravity=</span><span class="s">"center_horizontal"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/button1"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:text=</span><span class="s">"배경색 변경"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/button2"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:text=</span><span class="s">"버튼 변경"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">contextmenuusingxml</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.graphics.Color</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.ContextMenu</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.MenuInflater</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.MenuItem</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.LinearLayout</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nc">LinearLayout</span> <span class="n">baseLayout</span><span class="o">;</span>
+    <span class="nc">Button</span> <span class="n">button1</span><span class="o">,</span> <span class="n">button2</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">setTitle</span><span class="o">(</span><span class="s">"배경색 바꾸기(컨텍스트 메뉴)"</span><span class="o">);</span>
+        <span class="n">baseLayout</span> <span class="o">=</span> <span class="o">(</span><span class="nc">LinearLayout</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">baseLayout</span><span class="o">);</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button1</span><span class="o">);</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button2</span><span class="o">);</span>
+        <span class="n">registerForContextMenu</span><span class="o">(</span><span class="n">button1</span><span class="o">);</span>
+        <span class="n">registerForContextMenu</span><span class="o">(</span><span class="n">button2</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreateContextMenu</span><span class="o">(</span><span class="nc">ContextMenu</span> <span class="n">menu</span><span class="o">,</span> <span class="nc">View</span> <span class="n">v</span><span class="o">,</span> <span class="nc">ContextMenu</span><span class="o">.</span><span class="na">ContextMenuInfo</span> <span class="n">menuInfo</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreateContextMenu</span><span class="o">(</span><span class="n">menu</span><span class="o">,</span> <span class="n">v</span><span class="o">,</span> <span class="n">menuInfo</span><span class="o">);</span>
+
+        <span class="nc">MenuInflater</span> <span class="n">mInflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">button1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">menu</span><span class="o">.</span><span class="na">setHeaderTitle</span><span class="o">(</span><span class="s">"배경색 변경"</span><span class="o">);</span>
+            <span class="n">mInflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">menu1</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">button2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">menu</span><span class="o">.</span><span class="na">setHeaderTitle</span><span class="o">(</span><span class="s">"버튼 변경"</span><span class="o">);</span>
+            <span class="n">mInflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">menu2</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onContextItemSelected</span><span class="o">(</span><span class="nc">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+<span class="c1">//        return super.onContextItemSelected(item);</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">itemRed</span><span class="o">:</span>
+                <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">itemGreen</span><span class="o">:</span>
+                <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">itemBlue</span><span class="o">:</span>
+                <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">subRotate</span><span class="o">:</span>
+                <span class="n">button1</span><span class="o">.</span><span class="na">setRotation</span><span class="o">(</span><span class="mi">45</span><span class="o">);</span>
+                <span class="n">button2</span><span class="o">.</span><span class="na">setRotation</span><span class="o">(</span><span class="mi">45</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">subSize</span><span class="o">:</span>
+                <span class="n">button1</span><span class="o">.</span><span class="na">setScaleX</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+                <span class="n">button2</span><span class="o">.</span><span class="na">setScaleY</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="결과-화면">결과 화면</h3>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379258-ec037280-196d-11ea-8947-e0a87893024f.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379260-f4f44400-196d-11ea-85c6-9a3fc440e2ce.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70379264-00476f80-196e-11ea-92f6-9b8a8b4bac8e.png" alt="image" /></p>
+
+:ET

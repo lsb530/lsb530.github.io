@@ -1,0 +1,117 @@
+I"�;<h2 id="액션바와-프래그먼트를-활용하여-화면-구현">액션바와 프래그먼트를 활용하여 화면 구현</h2>
+
+<ul>
+  <li>액션바를 Java로만 만들고 메뉴처럼 활용해서 다른 화면을 동적으로 구성해보려고 한다</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70378694-c3c44580-1966-11ea-9cc4-bcdcde6293c1.png" alt="image" /></p>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>필요 없다! 왜냐하면 java로만 구현할것이기 때문에
+</code></pre></div></div>
+<ul>
+  <li>그동안 MainActivity의 onCreate에서 작성했었던 setContentView는 지워주도록 하자</li>
+  <li>맨처음에 ActionBar.TabListener를 상속받을때 v7로 상속받자</li>
+</ul>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">viewcontainer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.graphics.Color</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.annotation.NonNull</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.annotation.Nullable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v4.app.Fragment</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v4.app.FragmentTransaction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.ActionBar</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.LayoutInflater</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.ViewGroup</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.LinearLayout</span><span class="o">;</span>
+
+<span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"deprecation"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="kd">implements</span> <span class="nc">ActionBar</span><span class="o">.</span><span class="na">TabListener</span> <span class="o">{</span> <span class="c1">// 여기에서 ActionBar를 v7로 받아야함!!</span>
+
+    <span class="nc">ActionBar</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tabSong</span><span class="o">,</span> <span class="n">tabArtist</span><span class="o">,</span> <span class="n">tabAlbum</span><span class="o">;</span>
+    <span class="nc">MyTabFragment</span> <span class="n">myFrags</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyTabFragment</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="nc">ActionBar</span> <span class="n">bar</span> <span class="o">=</span> <span class="n">getSupportActionBar</span><span class="o">();</span>
+        <span class="n">bar</span><span class="o">.</span><span class="na">setNavigationMode</span><span class="o">(</span><span class="nc">ActionBar</span><span class="o">.</span><span class="na">NAVIGATION_MODE_TABS</span><span class="o">);</span>
+
+        <span class="n">tabSong</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="na">newTab</span><span class="o">();</span>
+        <span class="n">tabSong</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"음악별"</span><span class="o">);</span>
+        <span class="n">tabSong</span><span class="o">.</span><span class="na">setTabListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">bar</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabSong</span><span class="o">);</span>
+
+        <span class="n">tabArtist</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="na">newTab</span><span class="o">();</span>
+        <span class="n">tabArtist</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"가수별"</span><span class="o">);</span>
+        <span class="n">tabArtist</span><span class="o">.</span><span class="na">setTabListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">bar</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabArtist</span><span class="o">);</span>
+
+        <span class="n">tabAlbum</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="na">newTab</span><span class="o">();</span>
+        <span class="n">tabAlbum</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"앨범별"</span><span class="o">);</span>
+        <span class="n">tabAlbum</span><span class="o">.</span><span class="na">setTabListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">bar</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabAlbum</span><span class="o">);</span>
+    <span class="o">}</span> <span class="c1">// onCreate</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabSelected</span><span class="o">(</span><span class="nc">ActionBar</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">,</span> <span class="nc">FragmentTransaction</span> <span class="n">fragmentTransaction</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MyTabFragment</span> <span class="n">myTabFrag</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">myFrags</span><span class="o">[</span><span class="n">tab</span><span class="o">.</span><span class="na">getPosition</span><span class="o">()]</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">myTabFrag</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyTabFragment</span><span class="o">();</span>
+            <span class="nc">Bundle</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Bundle</span><span class="o">();</span>
+            <span class="n">data</span><span class="o">.</span><span class="na">putString</span><span class="o">(</span><span class="s">"tabName"</span><span class="o">,</span> <span class="n">tab</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+            <span class="n">myTabFrag</span><span class="o">.</span><span class="na">setArguments</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+            <span class="n">myFrags</span><span class="o">[</span><span class="n">tab</span><span class="o">.</span><span class="na">getPosition</span><span class="o">()]</span> <span class="o">=</span> <span class="n">myTabFrag</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="n">myTabFrag</span> <span class="o">=</span> <span class="n">myFrags</span><span class="o">[</span><span class="n">tab</span><span class="o">.</span><span class="na">getPosition</span><span class="o">()];</span>
+
+        <span class="n">fragmentTransaction</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content</span><span class="o">,</span> <span class="n">myTabFrag</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabUnselected</span><span class="o">(</span><span class="nc">ActionBar</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">,</span> <span class="nc">FragmentTransaction</span> <span class="n">fragmentTransaction</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabReselected</span><span class="o">(</span><span class="nc">ActionBar</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">,</span> <span class="nc">FragmentTransaction</span> <span class="n">fragmentTransaction</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyTabFragment</span> <span class="kd">extends</span> <span class="nc">Fragment</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">tabName</span><span class="o">;</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+            <span class="nc">Bundle</span> <span class="n">data</span> <span class="o">=</span> <span class="n">getArguments</span><span class="o">();</span>
+            <span class="n">tabName</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"tabName"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="c1">//onCreate</span>
+
+        <span class="nd">@Nullable</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nc">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="nc">LayoutInflater</span> <span class="n">inflater</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">ViewGroup</span> <span class="n">container</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">LinearLayout</span><span class="o">.</span><span class="na">LayoutParams</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinearLayout</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">(</span>
+                    <span class="nc">LinearLayout</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">MATCH_PARENT</span><span class="o">,</span>
+                    <span class="nc">LinearLayout</span><span class="o">.</span><span class="na">LayoutParams</span><span class="o">.</span><span class="na">MATCH_PARENT</span>
+            <span class="o">);</span>
+            <span class="nc">LinearLayout</span> <span class="n">baseLayout</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinearLayout</span><span class="o">(</span><span class="kd">super</span><span class="o">.</span><span class="na">getActivity</span><span class="o">());</span>
+            <span class="n">baseLayout</span><span class="o">.</span><span class="na">setOrientation</span><span class="o">(</span><span class="nc">LinearLayout</span><span class="o">.</span><span class="na">VERTICAL</span><span class="o">);</span>
+            <span class="n">baseLayout</span><span class="o">.</span><span class="na">setLayoutParams</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="n">tabName</span> <span class="o">==</span> <span class="s">"음악별"</span><span class="o">)</span> <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">tabName</span> <span class="o">==</span> <span class="s">"가수별"</span><span class="o">)</span> <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">tabName</span> <span class="o">==</span> <span class="s">"앨범별"</span><span class="o">)</span> <span class="n">baseLayout</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+
+            <span class="k">return</span> <span class="n">baseLayout</span><span class="o">;</span>
+        <span class="o">}</span> <span class="c1">//onCreateView</span>
+    <span class="o">}</span> <span class="c1">// MyTabFragment</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+:ET

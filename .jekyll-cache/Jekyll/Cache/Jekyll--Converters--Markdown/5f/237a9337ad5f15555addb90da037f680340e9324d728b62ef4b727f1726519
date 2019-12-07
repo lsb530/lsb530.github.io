@@ -1,0 +1,114 @@
+I"M)<h2 id="뷰플리퍼를-이용하여-자동-사진-보기앱-예제">뷰플리퍼를 이용하여 자동 사진 보기앱 예제</h2>
+
+<ul>
+  <li>자동으로 돌아가는 사진앱이다</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70378462-f456b000-1963-11ea-8a13-ee945c28c905.png" alt="image" /></p>
+
+<ul>
+  <li>미리 자신이 준비한 그림파일들을 drawble 폴더에 넣어주자</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;LinearLayout</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:orientation=</span><span class="s">"horizontal"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnStart"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_weight=</span><span class="s">"1"</span>
+            <span class="na">android:text=</span><span class="s">"사진보기 시작"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnStop"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_weight=</span><span class="s">"1"</span>
+            <span class="na">android:text=</span><span class="s">"사진보기 정지"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/LinearLayout&gt;</span>
+
+    <span class="nt">&lt;ViewFlipper</span> <span class="na">android:id=</span><span class="s">"@+id/viewFlipper1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ImageView</span> <span class="na">android:id=</span><span class="s">"@+id/imageView1"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_gravity=</span><span class="s">"center"</span>
+            <span class="na">android:src=</span><span class="s">"@drawable/cupcake"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;ImageView</span> <span class="na">android:id=</span><span class="s">"@+id/imageView2"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_gravity=</span><span class="s">"center"</span>
+            <span class="na">android:src=</span><span class="s">"@drawable/donut"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;ImageView</span> <span class="na">android:id=</span><span class="s">"@+id/imageView3"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_gravity=</span><span class="s">"center"</span>
+            <span class="na">android:src=</span><span class="s">"@drawable/eclair"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;ImageView</span> <span class="na">android:id=</span><span class="s">"@+id/imageView4"</span>
+            <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+            <span class="na">android:layout_gravity=</span><span class="s">"center"</span>
+            <span class="na">android:src=</span><span class="s">"@drawable/honeycomb"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/ViewFlipper&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">viewflipper</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.ViewFlipper</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="nc">Button</span> <span class="n">btnStart</span><span class="o">,</span> <span class="n">btnStop</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="nc">ViewFlipper</span> <span class="n">viewFlipper</span><span class="o">;</span>
+
+        <span class="n">btnStart</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnStart</span><span class="o">);</span>
+        <span class="n">btnStop</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnStop</span><span class="o">);</span>
+
+        <span class="n">viewFlipper</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ViewFlipper</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">viewFlipper1</span><span class="o">);</span>
+
+        <span class="n">viewFlipper</span><span class="o">.</span><span class="na">setFlipInterval</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+
+        <span class="n">btnStart</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">viewFlipper</span><span class="o">.</span><span class="na">startFlipping</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        <span class="n">btnStop</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">viewFlipper</span><span class="o">.</span><span class="na">stopFlipping</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>결과 화면</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70378508-67602680-1964-11ea-9f98-93502590f655.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70378512-76df6f80-1964-11ea-8085-602e739eb4c9.png" alt="image" /></p>
+
+:ET
