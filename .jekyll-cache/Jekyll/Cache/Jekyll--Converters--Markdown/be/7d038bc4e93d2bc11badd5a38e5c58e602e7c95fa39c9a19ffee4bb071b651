@@ -1,0 +1,159 @@
+I"�L<h2 id="implicit-intent를-이용해서-여러가지-기능들을-동작해본다">implicit intent를 이용해서 여러가지 기능들을 동작해본다</h2>
+
+<ul>
+  <li>먼저 AndroidManifest.xml에 uses-permission 권한을 3개 추가시켜준다</li>
+</ul>
+
+<p><code class="highlighter-rouge">AndroidManifest.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">package=</span><span class="s">"com.example.boki.implicitintent"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.CALL_PHONE"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_COARSE_LOCATION"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_FINE_LOCATION"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;application</span>
+        <span class="na">android:allowBackup=</span><span class="s">"true"</span>
+        <span class="na">android:icon=</span><span class="s">"@mipmap/ic_launcher"</span>
+        <span class="na">android:label=</span><span class="s">"@string/app_name"</span>
+        <span class="na">android:roundIcon=</span><span class="s">"@mipmap/ic_launcher_round"</span>
+        <span class="na">android:supportsRtl=</span><span class="s">"true"</span>
+        <span class="na">android:theme=</span><span class="s">"@style/AppTheme"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MAIN"</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">"android.intent.category.LAUNCHER"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+        <span class="nt">&lt;/activity&gt;</span>
+    <span class="nt">&lt;/application&gt;</span>
+
+<span class="nt">&lt;/manifest&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnDial"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"전화 걸기"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnWeb"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"홈페이지 열기"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnGoogle"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"구글 맵 열기"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnSearch"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"구글 검색하기"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnSms"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"문자 보내기"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnPhoto"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"사진 찍기"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">implicitintent</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.app.SearchManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.content.Intent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.net.Uri</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.provider.MediaStore</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">setTitle</span><span class="o">(</span><span class="s">"암시적 인텐트 예제"</span><span class="o">);</span>
+
+        <span class="nc">Button</span> <span class="n">btnDial</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnDial</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnWeb</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnWeb</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnGoogle</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnGoogle</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnSearch</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnSearch</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnSms</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnSms</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnPhoto</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnPhoto</span><span class="o">);</span>
+
+        <span class="n">btnDial</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="nc">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"tel:01012345678"</span><span class="o">);</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">Intent</span><span class="o">.</span><span class="na">ACTION_DIAL</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btnWeb</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="nc">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"http://www.hanbit.co.kr"</span><span class="o">);</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btnGoogle</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="nc">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"http://maps.google.com/maps?q="</span><span class="o">+</span><span class="mf">37.554264</span><span class="o">+</span><span class="s">","</span><span class="o">+</span><span class="mf">126.913598</span><span class="o">);</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btnSearch</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">Intent</span><span class="o">.</span><span class="na">ACTION_WEB_SEARCH</span><span class="o">);</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="nc">SearchManager</span><span class="o">.</span><span class="na">QUERY</span><span class="o">,</span> <span class="s">"안드로이드"</span><span class="o">);</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btnSms</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">Intent</span><span class="o">.</span><span class="na">ACTION_SENDTO</span><span class="o">);</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"sms_body"</span><span class="o">,</span> <span class="s">"안녕하세요?"</span><span class="o">);</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="nc">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"smsto:"</span><span class="o">+</span><span class="nc">Uri</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="s">"010-1234-4567"</span><span class="o">)));</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">btnPhoto</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="nc">MediaStore</span><span class="o">.</span><span class="na">ACTION_IMAGE_CAPTURE</span><span class="o">);</span>
+                <span class="n">startActivity</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h3 id="실행화면">실행화면</h3>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70384459-1c74fc00-19c2-11ea-9589-ef0fe411450e.png" alt="image" /></p>
+:ET

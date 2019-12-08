@@ -1,0 +1,74 @@
+I"�<h2 id="view-클래스를-상속받아-새로운-클래스를-만들고-ondraw를-재정의해준다">View 클래스를 상속받아 새로운 클래스를 만들고 onDraw를 재정의해준다</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70383814-8cca5000-19b7-11ea-9325-c84ae2542fd2.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70383816-99e73f00-19b7-11ea-964b-b5274f5cbd3e.png" alt="image" /></p>
+
+<h3 id="이미지를-먼저-drawble에-넣어줘야-한다">이미지를 먼저 drawble에 넣어줘야 한다</h3>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;android</span><span class="err">.</span><span class="na">support</span><span class="err">.</span><span class="na">constraint</span><span class="err">.</span><span class="na">ConstraintLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"Hello World!"</span>
+        <span class="na">app:layout_constraintBottom_toBottomOf=</span><span class="s">"parent"</span>
+        <span class="na">app:layout_constraintLeft_toLeftOf=</span><span class="s">"parent"</span>
+        <span class="na">app:layout_constraintRight_toRightOf=</span><span class="s">"parent"</span>
+        <span class="na">app:layout_constraintTop_toTopOf=</span><span class="s">"parent"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/android</span><span class="err">.support.constraint.ConstraintLayout</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">basicbitmap</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.graphics.Bitmap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.graphics.BitmapFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.graphics.Canvas</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+<span class="c1">//        setContentView(R.layout.activity_main);</span>
+        <span class="c1">//TODO 클래스를 직접 setContentView할거임</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="k">new</span> <span class="nc">MyGraphicView</span><span class="o">(</span><span class="k">this</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyGraphicView</span> <span class="kd">extends</span> <span class="nc">View</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">MyGraphicView</span><span class="o">(</span><span class="nc">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="nc">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+            <span class="nc">Bitmap</span> <span class="n">picture</span> <span class="o">=</span> <span class="nc">BitmapFactory</span><span class="o">.</span><span class="na">decodeResource</span><span class="o">(</span><span class="n">getResources</span><span class="o">(),</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">jeju14</span><span class="o">);</span>
+            <span class="kt">int</span> <span class="n">picX</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">-</span> <span class="n">picture</span><span class="o">.</span><span class="na">getWidth</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">picY</span> <span class="o">=</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">picture</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">picture</span><span class="o">,</span> <span class="n">picX</span><span class="o">,</span> <span class="n">picY</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="n">picture</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h3 id="실행화면">실행화면</h3>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70383825-d5820900-19b7-11ea-9dc2-f494ee26d61e.png" alt="image" /></p>
+:ET

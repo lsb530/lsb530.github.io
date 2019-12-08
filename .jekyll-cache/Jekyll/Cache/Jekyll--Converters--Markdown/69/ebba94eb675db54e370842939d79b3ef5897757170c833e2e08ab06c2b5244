@@ -1,0 +1,121 @@
+I"G<h2 id="내장-메모리-파일-처리를-이용한다">내장 메모리 파일 처리를 이용한다</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70383700-905cd780-19b5-11ea-81cf-4e61f77a9054.png" alt="image" /></p>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"fill_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"fill_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:gravity=</span><span class="s">"center"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;DatePicker</span> <span class="na">android:id=</span><span class="s">"@+id/datePicker1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:datePickerMode=</span><span class="s">"spinner"</span>
+        <span class="na">android:calendarViewShown=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/DatePicker&gt;</span>
+    <span class="nt">&lt;EditText</span> <span class="na">android:id=</span><span class="s">"@+id/edtDiary"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:layout_weight=</span><span class="s">"1"</span>
+        <span class="na">android:background=</span><span class="s">"#00FF00"</span>
+        <span class="na">android:lines=</span><span class="s">"8"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnWrite"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:enabled=</span><span class="s">"false"</span>
+        <span class="na">android:text=</span><span class="s">"Button"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">com</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">boki</span><span class="p">.</span><span class="n">simplediary</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="n">Context</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">v7</span><span class="p">.</span><span class="n">app</span><span class="p">.</span><span class="n">AppCompatActivity</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">os</span><span class="p">.</span><span class="n">Bundle</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">View</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">widget</span><span class="p">.</span><span class="n">Button</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">widget</span><span class="p">.</span><span class="n">DatePicker</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">widget</span><span class="p">.</span><span class="n">EditText</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">android</span><span class="p">.</span><span class="n">widget</span><span class="p">.</span><span class="n">Toast</span><span class="p">;</span>
+
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">FileInputStream</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">FileOutputStream</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">IOException</span><span class="p">;</span>
+<span class="n">import</span> <span class="n">java</span><span class="p">.</span><span class="n">util</span><span class="p">.</span><span class="n">Calendar</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="n">class</span> <span class="n">MainActivity</span> <span class="n">extends</span> <span class="n">AppCompatActivity</span> <span class="p">{</span>
+
+    <span class="n">DatePicker</span> <span class="n">dp</span><span class="p">;</span>
+    <span class="n">EditText</span> <span class="n">editDiary</span><span class="p">;</span>
+    <span class="n">Button</span> <span class="n">btnWrite</span><span class="p">;</span>
+    <span class="k">String</span> <span class="n">fileName</span><span class="p">;</span>
+
+    <span class="p">@</span><span class="n">Override</span>
+    <span class="n">protected</span> <span class="n">void</span> <span class="n">onCreate</span><span class="p">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">super</span><span class="p">.</span><span class="n">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span>
+        <span class="n">setContentView</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">activity_main</span><span class="p">);</span>
+        <span class="n">setTitle</span><span class="p">(</span><span class="s2">"간단 일기장"</span><span class="p">);</span>
+        <span class="n">dp</span> <span class="p">=</span> <span class="p">(</span><span class="n">DatePicker</span><span class="p">)</span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">datePicker1</span><span class="p">);</span>
+        <span class="n">editDiary</span> <span class="p">=</span> <span class="p">(</span><span class="n">EditText</span><span class="p">)</span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">edtDiary</span><span class="p">);</span>
+        <span class="n">btnWrite</span> <span class="p">=</span> <span class="p">(</span><span class="n">Button</span><span class="p">)</span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="n">btnWrite</span><span class="p">);</span>
+
+        <span class="p">//</span><span class="n">Todo</span> <span class="err">데이트피커</span> <span class="err">설정</span>
+        <span class="n">Calendar</span> <span class="n">cal</span> <span class="p">=</span> <span class="n">Calendar</span><span class="p">.</span><span class="n">getInstance</span><span class="p">();</span>
+        <span class="n">int</span> <span class="n">cYear</span> <span class="p">=</span> <span class="n">cal</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">Calendar</span><span class="p">.</span><span class="n">YEAR</span><span class="p">);</span>
+        <span class="n">int</span> <span class="n">cMonth</span> <span class="p">=</span> <span class="n">cal</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">Calendar</span><span class="p">.</span><span class="n">MONTH</span><span class="p">);</span>
+        <span class="n">int</span> <span class="n">cDay</span> <span class="p">=</span> <span class="n">cal</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">Calendar</span><span class="p">.</span><span class="n">DAY_OF_MONTH</span><span class="p">);</span>
+
+        <span class="n">dp</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">cYear</span><span class="p">,</span> <span class="n">cMonth</span><span class="p">,</span> <span class="n">cDay</span><span class="p">,</span> <span class="n">new</span> <span class="n">DatePicker</span><span class="p">.</span><span class="n">OnDateChangedListener</span><span class="p">()</span> <span class="p">{</span>
+            <span class="p">@</span><span class="n">Override</span>
+            <span class="k">public</span> <span class="n">void</span> <span class="n">onDateChanged</span><span class="p">(</span><span class="n">DatePicker</span> <span class="n">view</span><span class="p">,</span> <span class="n">int</span> <span class="n">year</span><span class="p">,</span> <span class="n">int</span> <span class="n">monthOfYear</span><span class="p">,</span> <span class="n">int</span> <span class="n">dayOfMonth</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">fileName</span> <span class="p">=</span> <span class="k">Integer</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="p">+</span> <span class="s2">"_"</span> <span class="p">+</span> <span class="k">Integer</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">monthOfYear</span> <span class="p">+</span> <span class="m">1</span><span class="p">)</span> <span class="p">+</span> <span class="s2">"_"</span> <span class="p">+</span> <span class="k">Integer</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">dayOfMonth</span><span class="p">)</span> <span class="p">+</span> <span class="s2">".txt"</span><span class="p">;</span>
+                <span class="p">//</span> <span class="n">month</span><span class="err">는</span> <span class="m">0</span><span class="err">부터</span> <span class="err">시작이</span> <span class="err">되어서</span> <span class="err">우리가</span> <span class="m">10</span><span class="err">을</span> <span class="err">선택해도</span> <span class="m">9</span><span class="err">가</span> <span class="err">되기때문에</span> <span class="m">1</span><span class="err">을</span> <span class="err">더해줬다</span>
+                <span class="k">String</span> <span class="n">str</span> <span class="p">=</span> <span class="n">readDiary</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span> <span class="p">//</span> <span class="err">현재</span> <span class="err">날짜의</span> <span class="err">파일을</span> <span class="err">읽어오는</span> <span class="err">메소드</span>
+                <span class="n">editDiary</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+                <span class="n">btnWrite</span><span class="p">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="p">//</span><span class="n">Todo</span> <span class="err">버튼</span> <span class="err">클릭</span> <span class="err">리스너</span>
+        <span class="n">btnWrite</span><span class="p">.</span><span class="n">setOnClickListener</span><span class="p">(</span><span class="n">new</span> <span class="n">View</span><span class="p">.</span><span class="n">OnClickListener</span><span class="p">()</span> <span class="p">{</span>
+            <span class="p">@</span><span class="n">Override</span>
+            <span class="k">public</span> <span class="n">void</span> <span class="n">onClick</span><span class="p">(</span><span class="n">View</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">try</span><span class="p">{</span>
+                    <span class="n">FileOutputStream</span> <span class="n">outFs</span> <span class="p">=</span> <span class="n">openFileOutput</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">Context</span><span class="p">.</span><span class="n">MODE_PRIVATE</span><span class="p">);</span>
+                    <span class="k">String</span> <span class="n">str</span> <span class="p">=</span> <span class="n">editDiary</span><span class="p">.</span><span class="n">getText</span><span class="p">().</span><span class="n">toString</span><span class="p">();</span>
+                    <span class="n">outFs</span><span class="p">.</span><span class="nb">write</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">getBytes</span><span class="p">());</span>
+                    <span class="n">outFs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+                    <span class="n">Toast</span><span class="p">.</span><span class="n">makeText</span><span class="p">(</span><span class="n">getApplicationContext</span><span class="p">(),</span><span class="n">fileName</span><span class="p">+</span><span class="s2">" 이 저장됨"</span><span class="p">,</span> <span class="n">Toast</span><span class="p">.</span><span class="n">LENGTH_SHORT</span><span class="p">).</span><span class="n">show</span><span class="p">();</span>
+                    <span class="n">readDiary</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+                <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="p">//</span><span class="n">Todo</span> <span class="err">현재</span> <span class="err">날짜의</span> <span class="err">파일을</span> <span class="err">얻어</span> <span class="err">일기</span> <span class="err">내용을</span> <span class="err">반환</span>
+    <span class="k">String</span> <span class="n">readDiary</span><span class="p">(</span><span class="k">String</span> <span class="n">fName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">String</span> <span class="n">diaryStr</span> <span class="p">=</span> <span class="n">null</span><span class="p">;</span>
+        <span class="n">FileInputStream</span> <span class="n">inputStream</span><span class="p">;</span>
+        <span class="n">try</span> <span class="p">{</span>
+            <span class="n">inputStream</span> <span class="p">=</span> <span class="n">openFileInput</span><span class="p">(</span><span class="n">fName</span><span class="p">);</span>
+            <span class="n">byte</span><span class="p">[]</span> <span class="n">txt</span> <span class="p">=</span> <span class="n">new</span> <span class="n">byte</span><span class="p">[</span><span class="m">500</span><span class="p">];</span>
+            <span class="n">inputStream</span><span class="p">.</span><span class="nb">read</span><span class="p">(</span><span class="n">txt</span><span class="p">);</span>
+            <span class="n">inputStream</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+            <span class="n">diaryStr</span> <span class="p">=</span> <span class="p">(</span><span class="n">new</span> <span class="k">String</span><span class="p">(</span><span class="n">txt</span><span class="p">)).</span><span class="nf">trim</span><span class="p">();</span>
+            <span class="n">btnWrite</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"수정하기"</span><span class="p">);</span>
+        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">editDiary</span><span class="p">.</span><span class="n">setHint</span><span class="p">(</span><span class="s2">"일기 없음"</span><span class="p">);</span>
+            <span class="n">btnWrite</span><span class="p">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">"새로 저장"</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">return</span> <span class="n">diaryStr</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+:ET

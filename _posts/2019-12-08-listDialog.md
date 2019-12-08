@@ -12,6 +12,14 @@ sitemap :
 
 ## listDialog를 이용한다
 
+### 미리 자신이 준비한 그림파일들을 drawble 폴더에 넣어주자
+#### 파일 Ctrl+C 해주고 자기만의 IDE에서 drawable 폴더를 선택한 채로 Ctrl+V해주면 된다
+
+* 이름을 클릭하면 원본 크기로 파일을 다운받을 수 있다
+
+![icon1](https://user-images.githubusercontent.com/39071798/70384660-b25e5600-19c5-11ea-814e-5a49d5648dfe.png)
+[icon1](https://user-images.githubusercontent.com/39071798/70384660-b25e5600-19c5-11ea-814e-5a49d5648dfe.png)
+
 ![image](https://user-images.githubusercontent.com/39071798/70379552-61bd0d80-1971-11ea-9537-fb7548abbe87.png)
 
 ![image](https://user-images.githubusercontent.com/39071798/70379556-77323780-1971-11ea-96d4-86ac9592a8a8.png)
@@ -95,6 +103,9 @@ sitemap :
         android:text="여기를 클릭"/>
 </LinearLayout>
 ```
+
+#### package 부분은 개개인마다 다르므로 import 구문부터 복사하는 것을 권장한다
+#### 추가로 MainActivity이름도 다를 수 있기때문에 주의해서 복사하고, 복사보다는 직접 쳐보는 것을 권장하는 바이다
 
 `MainActivity.java`
 ```java

@@ -91,6 +91,9 @@ sitemap :
 </LinearLayout>
 ```
 
+#### package 부분은 개개인마다 다르므로 import 구문부터 복사하는 것을 권장한다
+#### 추가로 MainActivity이름도 다를 수 있기때문에 주의해서 복사하고, 복사보다는 직접 쳐보는 것을 권장하는 바이다
+
 `MainActivity.java`
 ```java
 package com.example.boki.simplewebbrowser;

@@ -1,0 +1,189 @@
+I"SV<h2 id="intent를-이용해서-두-액티비티-간에-데이터를-전송하고-계산된-값을-넘겨본다2">intent를 이용해서 두 액티비티 간에 데이터를 전송하고 계산된 값을 넘겨본다2</h2>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70384181-301e6380-19be-11ea-9ce3-0d935c96816b.png" alt="image" /></p>
+
+<p><code class="highlighter-rouge">activity_main.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">xmlns:app=</span><span class="s">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">tools:context=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;EditText</span> <span class="na">android:id=</span><span class="s">"@+id/editNum1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:hint=</span><span class="s">"숫자1"</span>
+        <span class="na">android:inputType=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;EditText</span> <span class="na">android:id=</span><span class="s">"@+id/editNum2"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:hint=</span><span class="s">"숫자2"</span>
+        <span class="na">android:inputType=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnCalc"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"두 숫자의 곱 계산"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">activity_sub.xml</code></p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">"@+id/textNum1"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:hint=</span><span class="s">"숫자1"</span>
+        <span class="na">android:textSize=</span><span class="s">"16dp"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;TextView</span> <span class="na">android:id=</span><span class="s">"@+id/textNum2"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:hint=</span><span class="s">"숫자2"</span>
+        <span class="na">android:textSize=</span><span class="s">"16dp"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">android:id=</span><span class="s">"@+id/btnQuit"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"화면 닫기"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">MainActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">datatrans</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.content.Intent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.annotation.Nullable</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.support.v7.app.AppCompatActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.EditText</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Toast</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="nc">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="nc">EditText</span> <span class="n">mEditNum1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">EditText</span> <span class="n">mEditNum2</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Button</span> <span class="n">btnCalc</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="n">mEditNum1</span> <span class="o">=</span> <span class="o">(</span><span class="nc">EditText</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">editNum1</span><span class="o">);</span>
+        <span class="n">mEditNum2</span> <span class="o">=</span> <span class="o">(</span><span class="nc">EditText</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">editNum2</span><span class="o">);</span>
+        <span class="n">btnCalc</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnCalc</span><span class="o">);</span>
+
+        <span class="n">btnCalc</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="n">getApplicationContext</span><span class="o">(),</span> <span class="nc">SubActivity</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"num1"</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">mEditNum1</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+                <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"num2"</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">mEditNum2</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">()));</span>
+                <span class="n">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span> <span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="nc">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="no">RESULT_OK</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="s">"result"</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+            <span class="nc">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"두 숫자의 곱: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">,</span> <span class="nc">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">SubActivity.java</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">example</span><span class="o">.</span><span class="na">boki</span><span class="o">.</span><span class="na">datatrans</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.content.Intent</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.Button</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Locale</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">num1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">num2</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sub</span><span class="o">);</span>
+
+        <span class="nc">TextView</span> <span class="n">textNum1</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textNum1</span><span class="o">);</span>
+        <span class="nc">TextView</span> <span class="n">textNum2</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">textNum2</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnQuit</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Button</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btnQuit</span><span class="o">);</span>
+
+        <span class="nc">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">();</span>
+        <span class="n">num1</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="s">"num1"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">num2</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span><span class="s">"num2"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span> <span class="n">num1</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">num2</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">textNum1</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="nc">Locale</span><span class="o">.</span><span class="na">KOREAN</span><span class="o">,</span> <span class="s">"숫자1: %d"</span><span class="o">,</span> <span class="n">num1</span><span class="o">));</span>
+            <span class="n">textNum2</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="nc">Locale</span><span class="o">.</span><span class="na">KOREAN</span><span class="o">,</span> <span class="s">"숫자2: %d"</span><span class="o">,</span> <span class="n">num2</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="n">btnQuit</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="nc">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Intent</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">();</span>
+                <span class="n">data</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"result"</span><span class="o">,</span> <span class="n">num1</span> <span class="o">*</span> <span class="n">num2</span><span class="o">);</span>
+                <span class="n">setResult</span><span class="o">(</span><span class="no">RESULT_OK</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+                <span class="n">finish</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">AndroidManifest.xml</code></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">package=</span><span class="s">"com.example.boki.datatrans"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;application</span>
+        <span class="na">android:allowBackup=</span><span class="s">"true"</span>
+        <span class="na">android:icon=</span><span class="s">"@mipmap/ic_launcher"</span>
+        <span class="na">android:label=</span><span class="s">"@string/app_name"</span>
+        <span class="na">android:roundIcon=</span><span class="s">"@mipmap/ic_launcher_round"</span>
+        <span class="na">android:supportsRtl=</span><span class="s">"true"</span>
+        <span class="na">android:theme=</span><span class="s">"@style/AppTheme"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MainActivity"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MAIN"</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">"android.intent.category.LAUNCHER"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+        <span class="nt">&lt;/activity&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".SubActivity"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/application&gt;</span>
+
+<span class="nt">&lt;/manifest&gt;</span>
+</code></pre></div></div>
+
+<h3 id="실행화면">실행화면</h3>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70384406-5560a100-19c1-11ea-9b90-7d56d0c7e531.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70384411-5c87af00-19c1-11ea-82a8-3f40a1f37096.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70384414-63aebd00-19c1-11ea-9bb1-5db81d9429a5.png" alt="image" /></p>
+:ET
