@@ -1,0 +1,43 @@
+I"k<h2 id="girdview를-이용해-영화-포스터-앱을-만들어보자">GirdView를 이용해 영화 포스터 앱을 만들어보자</h2>
+
+<ul>
+  <li>목표</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70386498-74b8f780-19dc-11ea-95c2-343d07d859ff.png" alt="image" /></p>
+
+<ul>
+  <li>영화 포스터</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/39071798/70386519-cceff980-19dc-11ea-9740-434ea215587f.jpg" alt="mov01" />
+<img src="https://user-images.githubusercontent.com/39071798/70386520-cceff980-19dc-11ea-9955-dd6040dad7d8.jpg" alt="mov02" />
+<img src="https://user-images.githubusercontent.com/39071798/70386521-cceff980-19dc-11ea-8d14-00a4e5f8f3d9.jpg" alt="mov03" />
+<img src="https://user-images.githubusercontent.com/39071798/70386522-cceff980-19dc-11ea-9976-b7d19513c35a.jpg" alt="mov04" />
+<img src="https://user-images.githubusercontent.com/39071798/70386523-cd889000-19dc-11ea-834e-4aa7b465c399.jpg" alt="mov05" />
+<img src="https://user-images.githubusercontent.com/39071798/70386524-cd889000-19dc-11ea-9387-71cabcf18579.jpg" alt="mov06" />
+<img src="https://user-images.githubusercontent.com/39071798/70386525-cd889000-19dc-11ea-9a00-78775d7f35b3.jpg" alt="mov07" />
+<img src="https://user-images.githubusercontent.com/39071798/70386526-cd889000-19dc-11ea-8a45-007299f05673.jpg" alt="mov08" />
+<img src="https://user-images.githubusercontent.com/39071798/70386527-ce212680-19dc-11ea-838a-f41eb74e241c.jpg" alt="mov09" />
+<img src="https://user-images.githubusercontent.com/39071798/70386528-ce212680-19dc-11ea-99af-4985c2bfa3eb.jpg" alt="mov10" />
+<img src="https://user-images.githubusercontent.com/39071798/70386529-ce212680-19dc-11ea-8590-3cf058e7403e.jpg" alt="mov11" />
+<img src="https://user-images.githubusercontent.com/39071798/70386530-ce212680-19dc-11ea-96f1-0aaac1772b8a.jpg" alt="mov12" />
+<img src="https://user-images.githubusercontent.com/39071798/70386531-ceb9bd00-19dc-11ea-9f8b-fc8cdfa752e6.jpg" alt="mov13" />
+<img src="https://user-images.githubusercontent.com/39071798/70386532-ceb9bd00-19dc-11ea-9a92-a87a5c55aa2d.jpg" alt="mov14" />
+<img src="https://user-images.githubusercontent.com/39071798/70386533-ceb9bd00-19dc-11ea-80ec-919b3a9d497f.jpg" alt="mov15" />
+<img src="https://user-images.githubusercontent.com/39071798/70386534-cf525380-19dc-11ea-9e83-537dc12a39bc.jpg" alt="mov16" />
+<img src="https://user-images.githubusercontent.com/39071798/70386535-cf525380-19dc-11ea-8aa1-a747a0cdd931.jpg" alt="mov17" />
+<img src="https://user-images.githubusercontent.com/39071798/70386536-cf525380-19dc-11ea-8895-89b4fe11e856.jpg" alt="mov18" />
+<img src="https://user-images.githubusercontent.com/39071798/70386537-cfeaea00-19dc-11ea-9a58-c03b3f24ccc5.jpg" alt="mov19" />
+<img src="https://user-images.githubusercontent.com/39071798/70386538-cfeaea00-19dc-11ea-98c7-1591389577c3.jpg" alt="mov20" />
+<img src="https://user-images.githubusercontent.com/39071798/70386539-cfeaea00-19dc-11ea-8303-c9aa36937f76.jpg" alt="mov21" />
+<img src="https://user-images.githubusercontent.com/39071798/70386540-d0838080-19dc-11ea-8d43-6dd488b5f1c4.jpg" alt="mov22" />
+<img src="https://user-images.githubusercontent.com/39071798/70386541-d0838080-19dc-11ea-81e9-1a96b95d902e.jpg" alt="mov23" />
+<img src="https://user-images.githubusercontent.com/39071798/70386542-d0838080-19dc-11ea-9bdd-769d62c2f8df.jpg" alt="mov24" />
+<img src="https://user-images.githubusercontent.com/39071798/70386543-d0838080-19dc-11ea-8599-b38870d7fadf.jpg" alt="mov25" /></p>
+
+<ul>
+  <li>아이콘
+<img src="https://user-images.githubusercontent.com/39071798/70386544-d11c1700-19dc-11ea-828f-d5beb3d42f0d.png" alt="movie_icon" /></li>
+</ul>
+:ET
