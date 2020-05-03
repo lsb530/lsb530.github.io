@@ -17,5 +17,5 @@ sitemap :
 #### 프로그램 문의, 광고 문의는 lsb530@naver.com로 주시면 됩니다^^
 ### 다운로드 링크 첨부 밑에!!
 
-### CoverAreaForYoutuber
+### CoverAreaForYoutuber 아래 클릭
 [CoverAreaForYoutuber.zip](https://github.com/lsb530/lsb530.github.io/files/4570019/CoverAreaForYoutuber.zip)
