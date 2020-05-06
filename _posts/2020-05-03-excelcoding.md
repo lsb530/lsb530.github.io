@@ -1,6 +1,6 @@
 ---
 layout: post
-title: " 개발자의 길을 포기했다가 한쪽 발만 담그고 걸어가고있다 "
+title: " Youtube Computer Recoding with Cover(컴퓨터로 유튜브 영상을 녹화할때 보이고싶지 않은 부분을 가려주는 프로그램) "
 categories: c#
 author: boki
 tags: c# youtube thumb 유튜브 썸네일
@@ -18,4 +18,4 @@ sitemap :
 ### 다운로드 링크 첨부 밑에!
 
 ### CoverAreaForYoutuber
-[CoverAreaForYoutuber.zip](https://github.com/lsb530/lsb530.github.io/files/4570019/CoverAreaForYoutuber.zip)
+[CoverAreaForYoutuber.zip](https://github.com/lsb530/lsb530.github.io/files/4588701/CoverAreaForYoutuber.zip)
