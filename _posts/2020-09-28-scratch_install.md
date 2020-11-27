@@ -27,4 +27,3 @@ Scratch Desktop을 열어준다
 ![image](https://user-images.githubusercontent.com/39071798/100148288-e5a03a80-2edf-11eb-88f0-0ea5cb303444.png)
 간혹가다 한글이 아닌 경우엔 저기 버튼을 눌러서 한국어를 눌러주자
 ![image](https://user-images.githubusercontent.com/39071798/100148307-ea64ee80-2edf-11eb-9477-688b02b341ed.png)
-자! 이제 다음 강의부터 스크래치로 재밌는것들을 만들어보자
