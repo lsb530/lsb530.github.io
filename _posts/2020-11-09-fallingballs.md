@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 스크래치 5강 - fallingballs
+title: 스크래치 6강 - fallingballs
 categories: scratch
 author: boki
 tags: 스크래치
@@ -10,7 +10,7 @@ sitemap :
   priority : 1.0
 ---
 ## 6강! 공피하기 게임을 만들어볼거에요
-
+## 출처-이 강의들은 코드클럽SW교육기부단 자료를 토대로 재구성하였습니다.
 ## 완성사진
 ![image](https://user-images.githubusercontent.com/39071798/101172884-18d38e00-3685-11eb-91bd-84fd88caddfa.png)
 > 키보드로 하는 공피하기 게임을 만들어보겠습니다
