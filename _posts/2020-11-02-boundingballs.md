@@ -93,4 +93,4 @@ sitemap :
 ![image](https://user-images.githubusercontent.com/39071798/101168301-9778fd00-367e-11eb-8211-792e9f6ae3a0.png)
 
 ## 영상입니다.
-[![유튜브](https://img.youtube.com/vi/a-mo-ws7AEI/0.jpg)](https://www.youtube.com/watch?v=a-mo-ws7AEI)
+[![유튜브](https://img.youtube.com/vi/a-mo-ws7AEI/0.jpg)](https://www.youtube.com/watch?v=a-mo-ws7AEI){: target="_blank"}

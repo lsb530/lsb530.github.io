@@ -68,4 +68,4 @@ sitemap :
 ![image](https://user-images.githubusercontent.com/39071798/101176033-44587780-3689-11eb-8a14-e2643f36092b.png)
 
 ## 영상입니다.
-[![유튜브](https://img.youtube.com/vi/ANFMR28VgRk/0.jpg)](https://www.youtube.com/watch?v=ANFMR28VgRk)
+[![유튜브](https://img.youtube.com/vi/ANFMR28VgRk/0.jpg)](https://www.youtube.com/watch?v=ANFMR28VgRk){: target="_blank"}

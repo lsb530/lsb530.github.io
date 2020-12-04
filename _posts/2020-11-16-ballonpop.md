@@ -70,4 +70,4 @@ sitemap :
 ![image](https://user-images.githubusercontent.com/39071798/101199475-45e56800-36a8-11eb-8067-5d5765a924a6.png)
 
 ## 영상입니다.
-[![유튜브](https://img.youtube.com/vi/Kc952ECLNsw/0.jpg)](https://www.youtube.com/watch?v=Kc952ECLNsw)
+[![유튜브](https://img.youtube.com/vi/Kc952ECLNsw/0.jpg)](https://www.youtube.com/watch?v=Kc952ECLNsw){: target="_blank"}
