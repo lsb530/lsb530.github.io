@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\..\\디스코드봇\\bot_test"
+		},
+		{
+			"path": "..\\..\\..\\웹"
+		}
+	],
+	"settings": {
+		"terminal.integrated.cwd": "${fileDirname}"
+	}
+}
